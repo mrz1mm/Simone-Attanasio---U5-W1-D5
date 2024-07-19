@@ -5,7 +5,7 @@ using System.Data;
 
 namespace Epimunicipal.Service
 {
-    public class VerbalSvc
+    public class VerbalSvc : IVerbalSvc
     {
         private readonly IConfiguration _config;
         public VerbalSvc(IConfiguration config)

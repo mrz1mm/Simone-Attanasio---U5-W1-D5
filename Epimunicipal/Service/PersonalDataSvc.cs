@@ -4,7 +4,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Epimunicipal.Service
 {
-    public class PersonalDataSvc
+    public class PersonalDataSvc : IPersonalDataSvc
     {
         private readonly IConfiguration _config;
 

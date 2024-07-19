@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Epimunicipal.Service
 {
-    public class ViolationTypeSvc
+    public class ViolationTypeSvc : IViolationTypeSvc
     {
         private readonly IConfiguration _config;
 
