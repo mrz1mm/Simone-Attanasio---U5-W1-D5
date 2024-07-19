@@ -1,0 +1,20 @@
+﻿@model List<Epimunicipal.Models.Dto.TransgressorVerbalDto>
+
+<h2>Numero totale di verbali per persona</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cognome e Nome</th>
+            <th>Totale verbali</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FullName</td>
+                <td>@item.TotalVerbals</td>
+            </tr>
+        }
+    </tbody>
+</table>

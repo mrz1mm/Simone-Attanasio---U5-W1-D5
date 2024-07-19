@@ -1,0 +1,50 @@
+﻿@model Epimunicipal.Models.Dto.VerbalDto
+
+<h2>Aggiungi nuovo verbale</h2>
+<form asp-action="AddVerbal" asp-controller="BackOffice" method="post">
+    <div class="form-group">
+        <label asp-for="PersonalDataId"></label>
+        <select asp-for="PersonalDataId" class="form-control">
+            <option value="">Seleziona un trasgressore</option>
+            @foreach (var item in ViewBag.PersonalDataList)
+            {
+                <option value="@item.Id">@item.FullName</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="ViolationTypeId"></label>
+        <select asp-for="ViolationTypeId" class="form-control">
+            <option value="">Seleziona il tipo di violazione</option>
+            @foreach (var item in ViewBag.ViolationTypeList)
+            {
+                <option value="@item.Id">@item.Description</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="ViolationDate"></label>
+        <input asp-for="ViolationDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ViolationAddress"></label>
+        <input asp-for="ViolationAddress" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="AgentName"></label>
+        <input asp-for="AgentName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="VerbalDate"></label>
+        <input asp-for="VerbalDate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Amount"></label>
+        <input asp-for="Amount" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="PointDeduction"></label>
+        <input asp-for="PointDeduction" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Salva</button>
+</form>

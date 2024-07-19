@@ -1,0 +1,32 @@
+﻿@model List<Epimunicipal.Models.Dto.VerbalDetailsDto>
+
+<h2>Tutti i verbali</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cognome e Nome</th>
+            <th>Tipo di violazione</th>
+            <th>Data violazione</th>
+            <th>Indirizzo violazione</th>
+            <th>Nome agente</th>
+            <th>Data verbale</th>
+            <th>Importo</th>
+            <th>Punti detratti</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var verbal in Model)
+        {
+            <tr>
+                <td>@verbal.TransgressorFullName</td>
+                <td>@verbal.ViolationTypeDescription</td>
+                <td>@verbal.ViolationDate</td>
+                <td>@verbal.ViolationAddress</td>
+                <td>@verbal.AgentName</td>
+                <td>@verbal.VerbalDate</td>
+                <td>@verbal.Amount</td>
+                <td>@verbal.PointDeduction</td>
+            </tr>
+        }
+    </tbody>
+</table>

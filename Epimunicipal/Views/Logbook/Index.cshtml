@@ -1,0 +1,31 @@
+﻿@model List<Epimunicipal.Models.Dto.VerbalDetailsDto>
+
+<div class="btn-group mb-4" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-primary" onclick="loadData('GetVerbals')">Tutti i verbali</button>
+    <button type="button" class="btn btn-primary" onclick="loadData('GetTransgressorVerbals')">Verbali per trasgressore</button>
+    <button type="button" class="btn btn-primary" onclick="loadData('GetTransgressorPointsDeducted')">Totale punti decurtati per trasgressore</button>
+    <button type="button" class="btn btn-primary" onclick="loadData('GetVerbalsPointsDeductionOverTen')">Violazioni > 10 punti</button>
+    <button type="button" class="btn btn-primary" onclick="loadData('GetVerbalsAmountOver400')">Violazioni importo > 400,00&euro;</button>
+</div>
+
+<div id="dataContainer">
+    @Html.Partial("~/Views/Logbook/_Verbals.cshtml", Model)
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function loadData(action) {
+            $.ajax({
+                url: '@Url.Action()/' + action,
+                type: 'GET',
+                success: function (result) {
+                    $('#dataContainer').html(result);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Errore durante il caricamento dei dati: ', status, error);
+                }
+            });
+        }
+    </script>
+}

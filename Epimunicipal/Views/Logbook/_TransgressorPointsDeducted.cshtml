@@ -1,0 +1,20 @@
+﻿@model List<Epimunicipal.Models.Dto.TransgressorPointsDeductedDto>
+
+<h2>Totale punti detratti per persona</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cognome e Nome</th>
+            <th>Totale punti detratti</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FullName</td>
+                <td>@item.TotalPointsDeducted</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,24 @@
+﻿@model List<Epimunicipal.Models.Dto.VerbalsPointsDeductionOverTenDto>
+
+<h2>Tutti i verbali la cui detrazione punti è maggiore di 10 punti</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cognome e Nome</th>
+            <th>Data violazione</th>
+            <th>Punti detratti</th>
+            <th>Importo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FullName</td>
+                <td>@item.ViolationDate</td>
+                <td>@item.PointDeduction</td>
+                <td>@item.Amount</td>
+            </tr>
+        }
+    </tbody>
+</table>
