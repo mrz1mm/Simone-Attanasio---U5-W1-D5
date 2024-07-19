@@ -11,11 +11,11 @@ namespace Epimunicipal
             builder.Services.AddControllersWithViews();
             builder.Services.AddHttpContextAccessor();
 
-            builder
-                .Services
-                .AddScoped<PersonalDataSvc>()
-                .AddScoped<VerbalSvc>()
-                .AddScoped<ViolationTypeSvc>();
+            builder.Services
+                .AddScoped<IPersonalDataSvc, PersonalDataSvc>()
+                .AddScoped<IVerbalSvc, VerbalSvc>()
+                .AddScoped<IViolationTypeSvc, ViolationTypeSvc>();
+
 
             var app = builder.Build();
 

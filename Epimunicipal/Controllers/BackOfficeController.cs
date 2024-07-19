@@ -4,29 +4,50 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Epimunicipal.Controllers
 {
+    /// <summary>
+    /// Controller per la gestione del back office.
+    /// </summary>
     public class BackOfficeController : Controller
     {
-        private readonly PersonalDataSvc _personalDataSvc;
-        private readonly VerbalSvc _verbalSvc;
-        private readonly ViolationTypeSvc _violationTypeSvc;
+        private readonly IPersonalDataSvc _personalDataSvc;
+        private readonly IVerbalSvc _verbalSvc;
+        private readonly IViolationTypeSvc _violationTypeSvc;
 
-        public BackOfficeController(PersonalDataSvc personalDataSvc, VerbalSvc verbalSvc, ViolationTypeSvc violationTypeSvc)
+        /// <summary>
+        /// Costruttore del controller BackOffice.
+        /// </summary>
+        /// <param name="personalDataSvc">Servizio per la gestione dei dati personali.</param>
+        /// <param name="verbalSvc">Servizio per la gestione dei verbali.</param>
+        /// <param name="violationTypeSvc">Servizio per la gestione dei tipi di violazione.</param>
+        public BackOfficeController(IPersonalDataSvc personalDataSvc, IVerbalSvc verbalSvc, IViolationTypeSvc violationTypeSvc)
         {
             _personalDataSvc = personalDataSvc;
             _verbalSvc = verbalSvc;
             _violationTypeSvc = violationTypeSvc;
         }
 
+        /// <summary>
+        /// Visualizza la pagina principale del back office.
+        /// </summary>
+        /// <returns>La vista della pagina principale.</returns>
         public IActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// Visualizza la partial view per aggiungere un trasgressore.
+        /// </summary>
+        /// <returns>La partial view per aggiungere un trasgressore.</returns>
         public IActionResult AddTransgressorPartial()
         {
             return PartialView("~/Views/BackOffice/_AddTransgressor.cshtml");
         }
 
+        /// <summary>
+        /// Visualizza la partial view per aggiungere un verbale.
+        /// </summary>
+        /// <returns>La partial view per aggiungere un verbale.</returns>
         public IActionResult AddVerbalPartial()
         {
             var personalDatas = _personalDataSvc.GetPersonalDatas();
@@ -38,10 +59,15 @@ namespace Epimunicipal.Controllers
             return PartialView("~/Views/BackOffice/_AddVerbal.cshtml");
         }
 
+        /// <summary>
+        /// Aggiunge un nuovo trasgressore.
+        /// </summary>
+        /// <param name="personalDataDto">I dettagli del trasgressore da aggiungere.</param>
+        /// <returns>Una redirezione alla vista principale.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AddTransgression([Bind("Surname, Name, Address, City, ZipCode, TaxIdCode")] PersonalDataDto personalDataDto)
-            {
+        {
             if (!ModelState.IsValid)
             {
                 TempData["Error"] = "Errore nei dati inseriti";
@@ -54,6 +80,11 @@ namespace Epimunicipal.Controllers
             return RedirectToAction("Index", "Logbook");
         }
 
+        /// <summary>
+        /// Aggiunge un nuovo verbale.
+        /// </summary>
+        /// <param name="verbalDto">I dettagli del verbale da aggiungere.</param>
+        /// <returns>Una redirezione alla vista principale.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AddVerbal([Bind("PersonalDataId, ViolationTypeId, ViolationDate, ViolationAddress, AgentName, VerbalDate, Amount, PointDeduction")] VerbalDto verbalDto)
@@ -65,7 +96,7 @@ namespace Epimunicipal.Controllers
             }
 
             _verbalSvc.AddVerbal(verbalDto);
-            
+
             TempData["Success"] = "Verbale inserito correttamente";
             return RedirectToAction("Index", "Logbook");
         }
