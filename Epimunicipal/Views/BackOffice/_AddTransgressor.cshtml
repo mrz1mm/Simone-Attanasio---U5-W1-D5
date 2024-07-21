@@ -1,30 +1,35 @@
 ﻿@model Epimunicipal.Models.Dto.PersonalDataDto
 
+@{
+    var personalDataJson = TempData["PersonalData"] as string;
+    var personalData = personalDataJson != null ? Newtonsoft.Json.JsonConvert.DeserializeObject<Epimunicipal.Models.Dto.PersonalDataDto>(personalDataJson) : new Epimunicipal.Models.Dto.PersonalDataDto();
+}
+
 <h2>Aggiungi nuovo trasgressore</h2>
 <form asp-action="AddTransgression" asp-controller="BackOffice" method="post">
     <div class="form-group">
         <label asp-for="Surname"></label>
-        <input asp-for="Surname" class="form-control" />
+        <input asp-for="Surname" class="form-control" value="@personalData.Surname" />
     </div>
     <div class="form-group">
         <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
+        <input asp-for="Name" class="form-control" value="@personalData.Name" />
     </div>
     <div class="form-group">
         <label asp-for="Address"></label>
-        <input asp-for="Address" class="form-control" />
+        <input asp-for="Address" class="form-control" value="@personalData.Address" />
     </div>
     <div class="form-group">
         <label asp-for="City"></label>
-        <input asp-for="City" class="form-control" />
+        <input asp-for="City" class="form-control" value="@personalData.City" />
     </div>
     <div class="form-group">
         <label asp-for="ZipCode"></label>
-        <input asp-for="ZipCode" class="form-control" />
+        <input asp-for="ZipCode" class="form-control" value="@personalData.ZipCode" />
     </div>
     <div class="form-group">
         <label asp-for="TaxIdCode"></label>
-        <input asp-for="TaxIdCode" class="form-control" />
+        <input asp-for="TaxIdCode" class="form-control" value="@personalData.TaxIdCode" />
     </div>
     <button type="submit" class="btn btn-primary mt-3">Salva</button>
 </form>

@@ -38,5 +38,12 @@ namespace Epimunicipal.Service
         /// </summary>
         /// <param name="id">L'ID dei dati personali da eliminare.</param>
         void DeletePersonalData(int id);
+
+        /// <summary>
+        /// Verifica se un codice fiscale esiste già nel database.
+        /// </summary>
+        /// <param name="taxIdCode">Il codice fiscale da verificare.</param>
+        /// <returns>true se il codice fiscale esiste già, altrimenti false.</returns>
+        bool IsTaxIdCodeExists(string taxIdCode);
     }
 }

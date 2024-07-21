@@ -71,14 +71,32 @@ namespace Epimunicipal.Controllers
             if (!ModelState.IsValid)
             {
                 TempData["Error"] = "Errore nei dati inseriti";
-                return View();
+                TempData["PersonalData"] = Newtonsoft.Json.JsonConvert.SerializeObject(personalDataDto);
+                return RedirectToAction("Index", "BackOffice");
             }
 
-            _personalDataSvc.AddPersonalData(personalDataDto);
+            try
+            {
+                if (_personalDataSvc.IsTaxIdCodeExists(personalDataDto.TaxIdCode))
+                {
+                    TempData["Error"] = "Codice Fiscale già presente";
+                    TempData["PersonalData"] = Newtonsoft.Json.JsonConvert.SerializeObject(personalDataDto);
+                    return RedirectToAction("Index", "BackOffice");
+                }
 
-            TempData["Success"] = "Trasgressore inserito correttamente";
-            return RedirectToAction("Index", "Logbook");
+                _personalDataSvc.AddPersonalData(personalDataDto);
+                TempData["Success"] = "Trasgressore inserito correttamente";
+                return RedirectToAction("Index", "BackOffice");
+            }
+
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Errore nell'inserimento dei Dati Personali";
+                TempData["PersonalData"] = Newtonsoft.Json.JsonConvert.SerializeObject(personalDataDto);
+                return RedirectToAction("Index", "BackOffice");
+            }
         }
+
 
         /// <summary>
         /// Aggiunge un nuovo verbale.

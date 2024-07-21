@@ -163,5 +163,26 @@ namespace Epimunicipal.Service
                 throw new Exception("Errore nell'eliminazione dei Dati Personali", ex);
             }
         }
+
+        public bool IsTaxIdCodeExists(string taxIdCode)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+                {
+                    conn.Open();
+                    const string CHECK = "SELECT COUNT(1) FROM PersonalDatas WHERE TaxIdCode = @TaxIdCode";
+                    using (SqlCommand cmd = new SqlCommand(CHECK, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@TaxIdCode", taxIdCode);
+                        return (int)cmd.ExecuteScalar() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore nella verifica del Codice Fiscale", ex);
+            }
+        }
     }
 }

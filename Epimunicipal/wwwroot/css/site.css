@@ -25,3 +25,9 @@ body {
   width: 60px;
   height: 40px;
 }
+
+/* _Notification */
+.toast-top-right-custom {
+    top: 90px;
+    right: 12px;
+}
